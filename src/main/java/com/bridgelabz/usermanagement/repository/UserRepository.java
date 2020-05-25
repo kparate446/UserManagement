@@ -9,12 +9,16 @@ import com.bridgelabz.usermanagement.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Object> {
-	
+
 	// Call create procedure from database for All time Age Group
 	@Query(value = "call AgeGroup()", nativeQuery = true)
 	List<Object[]> ageGroup();
 	
-	
+	// call create procedure from DataBase for as per User Location in Ascending order
+	@Query(value = "call Location()", nativeQuery = true)
+	List<Object[]> location();
+
+
 	// find user by Email
 	User findByEmail(String email);
 	//find user by UserName

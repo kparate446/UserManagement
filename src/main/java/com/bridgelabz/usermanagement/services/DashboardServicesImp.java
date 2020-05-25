@@ -19,7 +19,7 @@ import com.sun.istack.logging.Logger;
 
 @Service
 public class DashboardServicesImp implements IDashboardServices {
-	
+
 	@Autowired
 	private ModelMapper mapper;
 	@Autowired
@@ -43,7 +43,7 @@ public class DashboardServicesImp implements IDashboardServices {
 	//	private EmailSenderService emailSenderService;
 	User user;
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImp.class);
-	
+
 	@Override
 	public Response getAllTimeAgeGroup(String token) {
 		String userName = jwtToken.getToken(token);
@@ -51,12 +51,23 @@ public class DashboardServicesImp implements IDashboardServices {
 		if (user == null) {
 			throw new InvalidUser(messageData.Invalid_User);
 		}
-//		if (user.getUserRole().equals("Admin")) {
-			return new Response(200, "Age Group", userRepository.ageGroup());
-//		}
-//		LOGGER.warning("Invalid User");
-//		throw new InvalidUser(messageData.Invalid_User);
-//		return new Response(200, "krunal", false);
+		//		if (user.getUserRole().equals("Admin")) {
+		LOGGER.warning("Count the Age Group");
+		return new Response(200, "Age Group", userRepository.ageGroup());
+		//		}
+		//		LOGGER.warning("Invalid User");
+		//		throw new InvalidUser(messageData.Invalid_User);
 	}
-	
+
+	@Override
+	public Response getAllLocation(String token) {
+		String userName = jwtToken.getToken(token);
+		User user = userRepository.findByUserName(userName);
+		if (user == null) {
+			throw new InvalidUser(messageData.Invalid_User);
+		}
+		LOGGER.warning("Count the Age Group");
+		return new Response(200, "Age Group", userRepository.location());
+	}
+
 }

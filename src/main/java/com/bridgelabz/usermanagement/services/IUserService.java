@@ -28,5 +28,4 @@ public interface IUserService {
 	Response inActiveUsers(String token);
 	Response onlineUsers(String token);
 	Response sortByRegistrationDate(String token);
-	Response findByGender(String token);
 }

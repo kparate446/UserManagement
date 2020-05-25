@@ -224,4 +224,10 @@ public class UserController {
 		Response response = dashboardService.getAllTimeAgeGroup(token);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getAllLocation")
+	public ResponseEntity<Response> getAllLocation(@RequestHeader String token) {
+		Response response = dashboardService.getAllLocation(token);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
 }

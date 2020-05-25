@@ -47,8 +47,6 @@ public class UserServiceImp implements IUserService {
 	private ModelMapper mapper;
 	@Autowired
 	private UserRepository userRepository;
-	//	@Autowired
-	//	private UserDataRepository userDataRepository;
 	@Autowired
 	private PermissionsRepository permissionsRepository;
 	@Autowired
@@ -244,43 +242,6 @@ public class UserServiceImp implements IUserService {
 			return new Response(200, "Sucessfully Added User Permisssion ", permissions);
 		}
 	}
-
-	//	@Override
-	//	public Response getUserList(String token) {
-	//		if(userRepository.findAll() == null) {
-	//			throw new InvalidUser(messageData.Invalid_User);
-	//		}
-	//		List<User> userList = userRepository.findAll();
-	//		UserData userDataEntity = new UserData();
-	//		for(User userdata : userList) {
-	//			userDataEntity.setProfilePic(userdata.getProfilePic());
-	//			userDataEntity.setBirthOfDate(userdata.getBirthOfDate());
-	//			userDataEntity.setEmail(userdata.getEmail());
-	//			userDataEntity.setUserRole(userdata.getUserRole());
-	//			userDataRepository.save(userDataEntity);
-	//		}	
-	//		return new Response(200, "Sucessfully showing the user",userDataRepository.findAll());
-	//	}		 
-
-	// List<UserData> userDataList =userDataRepository.findAll();
-	// List<UserData> userData = UserData.stream().filter(e -> (e.)))
-	// .collect(Collectors.toList());
-	// return new Response(200, "Successfully showing the
-	// use,userDataRepository.findAll()r List ",userDataRepository.findAll());
-	// String userName = jwtToken.getToken(token);
-	// User user = userRepository.findByUserName(userName);
-	// if (user == null) {
-	// throw new InvalidUser(messageData.Invalid_User);
-	// }
-	// List<Permissions> user1 = permissionsRepository.findAll().stream()
-	// .filter(e -> e.getUser().getId() ==
-	// user.getId()).collect(Collectors.toList());
-	// return new Response(200, "Sucessfully showing the user List ", user1);
-	// }
-	// List<Notes> list = getNote.stream().filter(note ->
-	// (note.getDiscription().contains(description)) ||
-	// (note.getTitle().contains(description)) )
-	// .collect(Collectors.toList());
 
 	/** Delete Users */
 	@Override
@@ -494,19 +455,5 @@ public class UserServiceImp implements IUserService {
 		List<User> sort = userRepository.findAll();
 		List<User> users = sort.stream().sorted((list1,list2) -> list1.getRegisterTime().compareTo(list2.getRegisterTime())).collect(Collectors.toList());
 		return new Response(200, "Sort by Registration date in Ascending order",users);
-	}
-
-	@Override
-	public Response findByGender(String token) {
-		String userName = jwtToken.getToken(token);
-		User user = userRepository.findByUserName(userName);
-		if(user == null) {
-			LOGGER.warning("Invalid User");
-			return new Response(400, "Invalid User", false);
-		}
-		User gender = userRepository.findByGender(user.getGender());
-//		List<User> user = gender.get(male)
-		return null;
-	}
-	
+	}	
 }
