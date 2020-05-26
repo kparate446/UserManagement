@@ -1,17 +1,13 @@
 package com.bridgelabz.usermanagement.services;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.usermanagement.configuration.PasswordConfiguration;
 import com.bridgelabz.usermanagement.exception.InvalidUser;
 import com.bridgelabz.usermanagement.message.MessageData;
-import com.bridgelabz.usermanagement.message.MessageResponse;
 import com.bridgelabz.usermanagement.model.User;
-import com.bridgelabz.usermanagement.repository.PermissionsRepository;
 import com.bridgelabz.usermanagement.repository.UserRepository;
 import com.bridgelabz.usermanagement.response.Response;
 import com.bridgelabz.usermanagement.utility.JwtToken;
@@ -21,13 +17,7 @@ import com.sun.istack.logging.Logger;
 public class DashboardServicesImp implements IDashboardServices {
 
 	@Autowired
-	private ModelMapper mapper;
-	@Autowired
 	private UserRepository userRepository;
-	//	@Autowired
-	//	private UserDataRepository userDataRepository;
-	@Autowired
-	private PermissionsRepository permissionsRepository;
 	@Autowired
 	private MessageData messageData;
 	@Autowired
@@ -36,12 +26,7 @@ public class DashboardServicesImp implements IDashboardServices {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	PasswordConfiguration passConfig;
-	@Autowired
-	MessageResponse messageResponse;
-	private SimpleMailMessage email;
-	//	@Autowired
-	//	private EmailSenderService emailSenderService;
-	User user;
+
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImp.class);
 
 	@Override
@@ -51,12 +36,12 @@ public class DashboardServicesImp implements IDashboardServices {
 		if (user == null) {
 			throw new InvalidUser(messageData.Invalid_User);
 		}
-		//		if (user.getUserRole().equals("Admin")) {
-		LOGGER.warning("Count the Age Group");
-		return new Response(200, "Age Group", userRepository.ageGroup());
-		//		}
-		//		LOGGER.warning("Invalid User");
-		//		throw new InvalidUser(messageData.Invalid_User);
+		// if (user.getUserRole().equals("Admin")) {
+		LOGGER.info("Gender has been counted");
+		return new Response(200, "Gender has been counted", userRepository.ageGroup());
+		// }
+		// LOGGER.warning("Invalid User");
+		// throw new InvalidUser(messageData.Invalid_User);
 	}
 
 	@Override
@@ -66,8 +51,19 @@ public class DashboardServicesImp implements IDashboardServices {
 		if (user == null) {
 			throw new InvalidUser(messageData.Invalid_User);
 		}
-		LOGGER.warning("Count the Age Group");
-		return new Response(200, "Age Group", userRepository.location());
+		LOGGER.info("successfully shows how many people there are in the country");
+		return new Response(200, "successfully shows how many people there are in the country", userRepository.location());
+	}
+
+	@Override
+	public Response getAllGender(String token) {
+		String userName = jwtToken.getToken(token);
+		User user = userRepository.findByUserName(userName);
+		if (user == null) {
+			throw new InvalidUser(messageData.Invalid_User);
+		}
+		LOGGER.info("Gender has been counted");
+		return new Response(200, "Gender has been counted", userRepository.gender());
 	}
 
 }

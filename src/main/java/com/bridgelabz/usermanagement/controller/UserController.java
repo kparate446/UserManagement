@@ -219,15 +219,33 @@ public class UserController {
 	}
 	
 	/**************************************************************/
+	/**
+	 * @param token
+	 * @return
+	 */
 	@GetMapping("/getAllTimeGender")
 	public ResponseEntity<Response> getAllTimeGender(@RequestHeader String token) {
 		Response response = dashboardService.getAllTimeAgeGroup(token);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
+	/**
+	 * @param token
+	 * @return
+	 */
 	@GetMapping("/getAllLocation")
 	public ResponseEntity<Response> getAllLocation(@RequestHeader String token) {
 		Response response = dashboardService.getAllLocation(token);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+	
+	/**
+	 * @param token
+	 * @return
+	 */
+	@GetMapping("/getAllGender")
+	public ResponseEntity<Response> getAllGender(@RequestHeader String token) {
+		Response response = dashboardService.getAllGender(token);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 }
